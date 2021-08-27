@@ -1,0 +1,13 @@
+1、UIAutomator元素定位
+    UIAutomator元素定位是 Android 系统原生支持的定位方式
+
+1.1、id定位
+id定位是根据元素的resource-id属性来进行定位，使用 UiSelector().resourceId()方法即可。
+find_element_by_android_uiautomator(‘new UiSelector().resourceId(“ ”)’)
+
+1.2、text定位
+text定位就是根据元素的text属性值来进行定位，new UiSelector()
+find_element_by_android_uiautomator(‘new UiSelector().text(“请输入用户名”)’)
+
+1.3、text定位class name定位
+find_element_by_android_uiautomator(‘new UiSelector().className(“ ”)’)

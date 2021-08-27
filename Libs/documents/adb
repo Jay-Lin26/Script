@@ -1,0 +1,5 @@
+查询设备连接：adb devices
+查看版本号：adb shell getprop ro.build.version.release
+查看连接设备名： adb devices -l
+查看app包名：adb shell pm list packages
+查看activity：adb shell dumpsys activity activities
