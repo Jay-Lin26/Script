@@ -7,7 +7,15 @@ class Encrypt:
         self.md5_obj2 = hashlib.md5()
         self.sha1_obj = hashlib.sha1()
 
-    def md5(self, pwd, salt):
+    def md5(self, *args):
+        params = ''
+        for key in args:
+            params += key
+        self.md5_obj1.update(params.encode(encoding='utf-8'))
+        result = self.md5_obj1.hexdigest()
+        return result
+
+    def md5_salt(self, pwd, salt):
         """
         :param pwd: 密码
         :param salt: 密码盐
@@ -31,10 +39,8 @@ class Encrypt:
         result = ''
         for key in args:
             result += key
-        print(result)
         self.sha1_obj.update(result.encode('utf-8'))
         result = self.sha1_obj.hexdigest()
-        print(result)
         return result
 
 

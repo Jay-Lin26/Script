@@ -14,11 +14,14 @@ class AndroidOptions(object):
         try:
             self.driver = webdriver.Remote('http://127.0.0.1:4723/wd/hub', apk)
             self.driver.implicitly_wait(8)
-        except WebDriverException as error:
-            print(error)
+        except WebDriverException as e:
+            print(e)
             sys.exit(1)
-        except MaxRetryError as error:
-            print(error)
+        except MaxRetryError:
+            print({
+                "code": 0,
+                "msg": "无法连接至http://127.0.0.1:4723/wd/hub；请检查appium客户端是否启动"
+            })
             sys.exit(1)
 
     # 通过id定位 => 点击
@@ -124,22 +127,22 @@ class AndroidOptions(object):
             return move
 
     # 选择图片
-    def choose_img(self, *method):
+    def choose_img(self, method):
         try:
             if method == 'add':
-                element = 'com.haitao:id/cl_container'
+                element = 'com.haitao:id/img_check'
                 resource_id = 'new UiSelector().resourceId("%s")' % element
                 img = self.driver.find_elements_by_android_uiautomator(resource_id)
                 choose_img = img[randint(0, len(img)-1)]
                 return choose_img.click()
             elif method == 'edit':
-                element = 'com.haitao:id/img'
+                element = 'com.haitao:id/img_check'
                 resource_id = 'new UiSelector().resourceId("%s")' % element
                 img = self.driver.find_elements_by_android_uiautomator(resource_id)
                 edit_image = img[0]
                 return edit_image.click()
         except NoSuchElementException:
-            element = 'com.haitao:id/image'
+            element = 'com.haitao:id/img'
             resource_id = 'new UiSelector().resourceId("%s")' % element
             img = self.driver.find_elements_by_android_uiautomator(resource_id)
             choose_img = img[randint(0, len(img) - 1)]
@@ -148,10 +151,10 @@ class AndroidOptions(object):
     # 选择标签搜索内容
     def choose_tag(self):
         try:
-            element = "com.haitao:id/ll_tag_container"
-            resource_id = 'new UiSelector().resourceId("%s")' % element
+            element = "标签"
+            resource_id = 'new UiSelector().text("%s")' % element
             tags = self.driver.find_elements_by_android_uiautomator(resource_id)
-            tag = tags[randint(0, len(tags)-1)]
+            tag = tags[randint(0, len(tags))]
             sleep(1)
             return tag.click()
         except NoSuchElementException:

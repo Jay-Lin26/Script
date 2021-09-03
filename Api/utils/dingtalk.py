@@ -43,4 +43,3 @@ class DingTalk:
             headers=headers,
             json=data
         )
-        #无返回值

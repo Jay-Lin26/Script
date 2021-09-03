@@ -14,9 +14,9 @@ class PriceComparisonWeb:
         @:param monitor_api
         @:param msg  钉钉机器人
         """
-        self.thecashback_api = HOST_MAX_PRO + '/Thecashback/store?token=ca06f53ca3557cb6db77d6752b4840ee'
-        self.holic_api = HOST_MAX_PRO + '/cashbackholic/store?token=107de22963d510d53601e8d6c21a3e53'
-        self.monitor_api = HOST_MAX_PRO + "/stores/rebate?token=25c16a7b6351412d7fbdb74ccaf40d0f"
+        self.thecashback_api = HOST_MAX_TEST + '/Thecashback/store?token=ca06f53ca3557cb6db77d6752b4840ee'
+        self.holic_api = HOST_MAX_TEST + '/cashbackholic/store?token=107de22963d510d53601e8d6c21a3e53'
+        self.monitor_api = HOST_MAX_TEST + "/stores/rebate?token=25c16a7b6351412d7fbdb74ccaf40d0f"
         self.msg = DingTalk()
 
     def thecashback(self):

@@ -7,7 +7,7 @@ from Libs.chrome.android_driver import AndroidOptions
 
 haitao = AndroidOptions(HUAWEI_DEVICE_INFO)
 
-_TITLE = '视客中奖几率真的高呀！超级开心哎'
+_TITLE = '省钱也不易，谈谈对你而言海淘最难的点'
 _CONTENT = '不知不觉55海淘用了两年多了，从没有去争取过福利' \
            '隐形眼镜一直通过55在视客买，上个月下单突然看到居然有抽奖，一直以来错过了太多啦！' \
            '晒了一下自己的单号就收到了试用了' \
