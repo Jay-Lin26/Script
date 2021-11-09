@@ -18,12 +18,9 @@ def bank_card_verify(card_number):
         for j in list(number):  # 遍历数组
             index += 1
             if index % 2 == 0:  # 当前位数是偶数，则 j * 1
-                if int(j) * 1 > 9:  # 结果如果大于9,则减去9
-                    num += int(j) * 1 - 9
-                else:
-                    num += int(j) * 1
+                num += int(j) * 1
             else:  # 当前位数是奇数，则 j * 2
-                if int(j) * 1 > 9:  # 结果如果大于9,则减去9
+                if int(j) * 2 > 9:  # 结果如果大于9,则减去9
                     num += int(j) * 2 - 9
                 else:
                     num += int(j) * 2
@@ -35,20 +32,15 @@ def bank_card_verify(card_number):
         for j in list(number):  # 遍历数组
             index += 1
             if index % 2 == 0:  # 当前位数是偶数，则 j * 2
-                if int(j) * 1 > 9:  # 结果如果大于9,则减去9
+                if int(j) * 2 > 9:  # 结果如果大于9,则减去9
                     num += int(j) * 2 - 9
                 else:
                     num += int(j) * 2
-            else:  # 当前位数是奇数，则 j * 2
-                if int(j) * 1 > 9:  # 结果如果大于9,则减去9
-                    num += int(j) * 1 - 9
-                else:
-                    num += int(j) * 1
+            else:  # 当前位数是奇数，则 j * 1
+                num += int(j) * 1
         if num % 10 == 0:
-            print(list(number))
             print("卡号正确")
         else:
-            print(list(number))
             print("卡号错误")
 
 
