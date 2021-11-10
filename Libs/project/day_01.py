@@ -12,14 +12,14 @@ def bank_card_verify(card_number):
         最终将所有位的分值叠加起来就是总分值
     总分值%10 得到结果为0则是正确的，不为0则是错误的卡号
     """
-    num = 0     # 计算后的总和
-    index = 0   # 列表当前位置
-    if card_len == 0:   # 偶数
-        for j in list(number):  # 遍历数组
+    num = 0                         # 计算后的总和
+    index = 0                       # 列表当前位置
+    if card_len == 0:               # 偶数
+        for j in list(number):      # 遍历数组
             index += 1
-            if index % 2 == 0:  # 当前位数是偶数，则 j * 1
+            if index % 2 == 0:      # 当前位数是偶数，则 j * 1
                 num += int(j) * 1
-            else:  # 当前位数是奇数，则 j * 2
+            else:                   # 当前位数是奇数，则 j * 2
                 if int(j) * 2 > 9:  # 结果如果大于9,则减去9
                     num += int(j) * 2 - 9
                 else:
@@ -28,15 +28,15 @@ def bank_card_verify(card_number):
             print("卡号正确")
         else:
             print("卡号错误")
-    else:                # 奇数
-        for j in list(number):  # 遍历数组
+    else:                           # 奇数
+        for j in list(number):      # 遍历数组
             index += 1
-            if index % 2 == 0:  # 当前位数是偶数，则 j * 2
+            if index % 2 == 0:      # 当前位数是偶数，则 j * 2
                 if int(j) * 2 > 9:  # 结果如果大于9,则减去9
                     num += int(j) * 2 - 9
                 else:
                     num += int(j) * 2
-            else:  # 当前位数是奇数，则 j * 1
+            else:                   # 当前位数是奇数，则 j * 1
                 num += int(j) * 1
         if num % 10 == 0:
             print("卡号正确")
