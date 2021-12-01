@@ -23,11 +23,15 @@ class ApiAutoTest:
         for p in platform:
             for i in range(1, rows):
                 method = self.main_sheet.cell(i, 1).value
+                path = self.main_sheet.cell(i, 2).value
                 url = self.host + self.main_sheet.cell(i, 2).value
-                headers = eval(self.main_sheet.cell(i, 3).value)  # 字符串转字典需要用eval函数
+                headers = eval(self.main_sheet.cell(i, 3).value)  # 字符串转字典需要用eval函数;
                 headers["token"] = "020d787a7e7ccac7756c19e46f9ee626"
                 headers["p"] = p
-                params = self.main_sheet.cell(i, 4).value
+                try:
+                    params = eval(self.main_sheet.cell(i, 4).value)
+                except SyntaxError:
+                    params = " "
                 msg = self.main_sheet.cell(i, 5).value
                 if method == 'get':
                     data = requests.get(url=url, headers=headers, params=params).json()
@@ -38,8 +42,8 @@ class ApiAutoTest:
                         self.write_sheet.write(i, 6, self.nowTime)
                         self.write_sheet.write(i, 7, "fail")
                         self.write_sheet.write(i, 8, data["msg"])
-                        ding = '接口 {} 返回结果异常" platform = {}; msg = {} "; 请及时排查！{}'
-                        self.sendMsg.execution("55Haitao", ding.format(url, p, data["msg"], self.nowTime))
+                        ding = '接口 {} 返回结果异常 "platform = {}; msg = {}"; {}'
+                        self.sendMsg.execution("55Haitao", ding.format(path, p, data["msg"], self.nowTime))
                 elif method == 'post':
                     data = requests.post(url=url, headers=headers, json=params).json()
                     if data["msg"] == msg:
@@ -49,12 +53,11 @@ class ApiAutoTest:
                         self.write_sheet.write(i, 6, self.nowTime)
                         self.write_sheet.write(i, 7, "fail")
                         self.write_sheet.write(i, 8, data["msg"])
-                        ding = '接口 {} 返回结果异常" platform = {}; msg = {} "; 请及时排查！{}'
-                        self.sendMsg.execution("55Haitao", ding.format(url, p, data["msg"], self.nowTime))
+                        ding = '接口 {} 返回结果异常 "platform = {}; msg = {}"; {}'
+                        self.sendMsg.execution("55Haitao", ding.format(path, p, data["msg"], self.nowTime))
         self.write_book.save("new_api.xlsx")
 
 
 if __name__ == '__main__':
     a = ApiAutoTest()
     a.readWork()
-    # a.writeWork()
