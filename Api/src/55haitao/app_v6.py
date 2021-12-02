@@ -55,7 +55,7 @@ class ApiAutoTest:
                         self.write_sheet.write(i, 8, data["msg"])
                         ding = '接口 {} 返回结果异常 "platform = {}; msg = {}"; {}'
                         self.sendMsg.execution("55Haitao", ding.format(path, p, data["msg"], self.nowTime))
-        self.write_book.save("new_api.xlsx")
+        self.write_book.save("apiReport.xlsx")
 
 
 if __name__ == '__main__':
