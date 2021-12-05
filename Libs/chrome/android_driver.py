@@ -1,7 +1,8 @@
-# coding = GBK
+# coding = utf-8
 import sys
 from random import randint
 from time import sleep
+
 
 from appium import webdriver
 from appium.webdriver.common.touch_action import TouchAction

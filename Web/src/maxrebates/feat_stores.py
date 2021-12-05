@@ -1,4 +1,4 @@
-# coding = GBK
+# coding = utf-8
 from Libs.chrome.web_driver import WebOptions
 
 mrs = WebOptions()
