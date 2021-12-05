@@ -18,7 +18,7 @@ class ApiAutoTest:
             self.host = "https://appv6.55haitao.com"
             self.sendMsg = DingTalk()
         except FileNotFoundError:
-            print("%s 接口文档找不到了~~" % file_path)
+            print("%s Excel is not found" % file_path)
             sys.exit()
 
     def readWork(self):
