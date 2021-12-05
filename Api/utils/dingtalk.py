@@ -17,7 +17,7 @@ class DingTalk:
         hmac_code = hmac.new(secret_enc, str_sign_enc, digestmod=hashlib.sha256).digest()
         self.sign = urllib.parse.quote_plus(base64.b64encode(hmac_code))
 
-    def execution(self, message):
+    def execution(self, website, message):
         params = {
             "access_token": "d010a68e3c5685a83fefa6e2e5809c6c388fdcff856539a62eb15a9faee7e326",
             "timestamp": self.timestamp,
@@ -26,6 +26,7 @@ class DingTalk:
         headers = {
             "Content-Type": "application/json;charset=utf-8"
         }
+        site = "[{}]"
         data = {
                     "at": {
                         "atMobiles": [],
@@ -33,7 +34,7 @@ class DingTalk:
                         "isAtAll": False
                     },
                     "text": {
-                        "content": "[Maxrebates] " + message
+                        "content": site.format(website) + message
                     },
                     "msgtype": "text"
         }

@@ -35,15 +35,17 @@ class CjCheck:
         result = requests.get(url, headers=headers, params=params).json()
         store_info = result["data"]
         last_id, last_name = [], []
+        stores = {}
         for i in range(len(store_info)):
             sid = store_info[i]["id"]
             name = store_info[i]["name"]
             last_id.append(sid)
-            last_name.append(name)
+            stores[sid] = name
         for j in self.not_allow_stores:
             if int(j) in last_id:
-                content = "警告：cj商家: " + j + " 出现在插件接口中！！"
-                self.msg.execution(content)
+                content = "警告：cj商家: {}({}) 出现在插件接口中！！"
+                self.msg.execution("Maxrebates", content.format(stores[j], j))
+        print(stores)
 
 
 if __name__ == '__main__':
