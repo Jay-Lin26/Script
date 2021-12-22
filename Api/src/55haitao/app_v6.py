@@ -10,16 +10,16 @@ from Api.utils.dingtalk import DingTalk
 
 
 class ApiAutoTest:
-    def __init__(self):
+    def __init__(self, sheet_name="haitao"):
         file_path = "C:\\Users\\55haitao\\Desktop\\app_v6.xlsx"
         try:
             book = xlrd.open_workbook(file_path)
             self.write_book = copy(book)
             self.allSheet = book.sheet_names()
-            self.main_sheet = book.sheet_by_name("main")
+            self.main_sheet = book.sheet_by_name(sheet_name)
             self.write_sheet = self.write_book.get_sheet(0)
-            # self.host = "https://appv6.55haitao.com"
-            self.host = "https://app.test.55haitao.com"
+            self.host = "https://appv6.55haitao.com"
+            # self.host = "https://app.test.55haitao.com"
             self.sendMsg = DingTalk()
         except FileNotFoundError:
             print("%s is not found" % file_path)
@@ -36,16 +36,17 @@ class ApiAutoTest:
             url = self.host + self.main_sheet.cell(i, 2).value
             features = self.main_sheet.cell(i, 9).value  # 是否自动修改参数
             headers = eval(self.main_sheet.cell(i, 3).value)  # 字符串转字典需要用eval函数;
-            headers["token"] = "c032a1b5ff24292124f5e4b292e9a9c9"  # 测试
-            # headers["token"] = "020d787a7e7ccac7756c19e46f9ee626"   # 正式
+            # headers["token"] = "c032a1b5ff24292124f5e4b292e9a9c9"  # 测试
+            headers["token"] = "020d787a7e7ccac7756c19e46f9ee626"   # 正式
             try:
                 params = eval(self.main_sheet.cell(i, 4).value)
                 if features == "showAdd":
-                    text = now_time + "自动发布测试"
+                    text = now_time + " 自动发布测试"
                     params["title"] = text
                     params["images"] = json.dumps(params["images"])
+                    platform = ["iOS"]
                 elif features == "commentAdd":
-                    text = now_time + "自动发布测试"
+                    text = now_time + " 自动发布测试；请勿审核"
                     params["content"] = text
                     platform = ["iOS"]
             except SyntaxError:
