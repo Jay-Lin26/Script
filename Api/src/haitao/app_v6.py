@@ -1,4 +1,5 @@
 import json
+import os
 import sys
 import time
 
@@ -6,12 +7,15 @@ import requests
 import xlrd
 from xlutils.copy import copy
 
-from Api.utils.dingtalk import DingTalk
+current_path = os.getcwd()
+sys.path.append("C:\\Users\\55haitao\\Desktop\\Study\\Api")
+
+from src.utils.dingtalk import DingTalk
 
 
 class ApiAutoTest:
     def __init__(self, sheet_name="haitao"):
-        file_path = "C:\\Users\\55haitao\\Desktop\\app_v6.xlsx"
+        file_path = "C:\\Users\\55haitao\\Desktop\\api.xlsx"
         try:
             book = xlrd.open_workbook(file_path)
             self.write_book = copy(book)
@@ -63,7 +67,7 @@ class ApiAutoTest:
                         self.write_sheet.write(i, 6, now_time)
                         self.write_sheet.write(i, 7, "fail")
                         self.write_sheet.write(i, 8, data["msg"])
-                        ding = '接口 {} 返回结果异常 "platform = {}; msg = {}"; {}'
+                        ding = ' 接口 {} 返回结果异常 "platform : {}; msg : {}"; {}'
                         self.sendMsg.execution("55Haitao", ding.format(path, p, data["msg"], now_time))
                         break   # 跳出本次设备型号循环，开始执行下一个接口
                 elif method == 'post':
@@ -75,7 +79,7 @@ class ApiAutoTest:
                         self.write_sheet.write(i, 6, now_time)
                         self.write_sheet.write(i, 7, "fail")
                         self.write_sheet.write(i, 8, data["msg"])
-                        ding = '接口 {} 返回结果异常 "platform = {}; msg = {}"; {}'
+                        ding = ' 接口 {} 返回结果异常 "platform : {}; msg : {}"; {}'
                         self.sendMsg.execution("55Haitao", ding.format(path, p, data["msg"], now_time))
                         break
         self.write_book.save("apiReport.xlsx")

@@ -5,7 +5,7 @@ import pymysql
 class DataBase:
     def __init__(self, website):
         self.obj = pymysql.connect(
-            host='db-test-master.55haitao.com',
+            host='db-test-master.haitao.com',
             user='haitao_php',
             password='haitao_php1234',
             database=website

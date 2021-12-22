@@ -13,7 +13,7 @@ c_source = "maxrebates"
 c_affiliate_id = "2"
 c_order_id = "W937976577"
 salt = "FUii1omnjo_0-9aAnv"     # maxrebates
-# salt = "Hel10s*hs1nM"         # 55haitao
+# salt = "Hel10s*hs1nM"         # haitao
 token = encrypt.md5(c_source, c_affiliate_id, c_order_id, salt)
 # 接口json参数
 data = {

@@ -6,10 +6,10 @@ from smtplib import SMTP_SSL
 import smtplib
 
 # acceptUser = """
-# 'linse.zhou@55haitao.com',
-# 'taosheng@55haitao.com',
-# 'miji.sarwono@55haitao.com',
-# 'christine.li@55haitao.com'
+# 'linse.zhou@haitao.com',
+# 'taosheng@haitao.com',
+# 'miji.sarwono@haitao.com',
+# 'christine.li@haitao.com'
 # """
 
 
@@ -17,7 +17,7 @@ def send_email(message):
     mail_host = 'smtp.163.com'
     mail_user = 'z6466660@163.com'
     password = 'YZYPMEHFIAXZPQLJ'
-    accept_user = 'linse.zhou@55haitao.com'
+    accept_user = 'linse.zhou@haitao.com'
     content = MIMEText('%s' % edm_html.format(message=message), 'html', 'utf-8')
     content['Subject'] = Header('测试脚本报警邮件', 'utf-8').encode()
     content['From'] = Header('Maxrebates<noreply@maxrebates.com>', 'utf-8').encode()

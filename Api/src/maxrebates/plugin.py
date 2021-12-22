@@ -2,7 +2,7 @@ import requests
 
 from Libs.host import *
 from cj_store_id import *
-from Api.utils.dingtalk import DingTalk
+from src.utils.dingtalk import DingTalk
 
 
 class CjCheck:
