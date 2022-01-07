@@ -1,5 +1,4 @@
 import json
-import os
 import sys
 import time
 
@@ -7,14 +6,18 @@ import requests
 import xlrd
 from xlutils.copy import copy
 
-current_path = os.getcwd()
-sys.path.append("C:\\Users\\55haitao\\Desktop\\Study\\Api")
+sys.path.append("C:\\Users\\55haitao\\Desktop\\Script\\Api")
 
 from utils.dingtalk import DingTalk
+from utils.common import ranString
 
 
 class ApiAutoTest:
-    def __init__(self, sheet_name="55haitao", environments="pro"):
+    def __init__(self, sheet_name: str = "55haitao", environments: str = "pro"):
+        """
+        @:param sheet_name => ["55haitao", "maxrebates"]
+        @:param environments => ["pro", "dev"]
+        """
         file_path = "C:\\Users\\55haitao\\Desktop\\api.xlsx"
         try:
             book = xlrd.open_workbook(file_path)
@@ -49,10 +52,11 @@ class ApiAutoTest:
             print("%s is not found" % file_path)
             sys.exit()
 
-    def readWork(self):
+    def run(self):
         rows = self.main_sheet.nrows
         # 不同设备所使用的header参数'p'不同;
         platform = ["web", "wap", "iOS", "BaiduApplet"]
+
         for i in range(1, rows):
             now_time = time.strftime("%Y-%m-%d-%H-%M-%S")
             method = self.main_sheet.cell(i, 1).value
@@ -77,21 +81,21 @@ class ApiAutoTest:
                          "width": 1200,
                          "height": 1200,
                          "tags": []
-                         }
-                    ]
+                         }]
+
                     if self.env == "dev":
                         images[0]["image"] = "https://cdn-test.55haitao.com/bbs/data/attachment/deal/2021/12/28/6800c8cff496ea0016145623968ddd92d2d.png"
                     params["title"] = text
                     params["images"] = json.dumps(images)
                     platform = ["iOS"]
                 elif features == "commentAdd":
-                    text = now_time + " 评论测试；请勿审核"
+                    text = ranString(8)
                     params["content"] = text
                     platform = ["iOS"]
                 elif features == "loseorderAdd":
-                    text = "TextOrder_" + str(round(time.time()))
+                    text = "TestOrder_" + str(round(time.time()))
                     params["order_number"] = text
-                    platform = ["iOS", "web", "android"]
+                    platform = ["iOS"]
             except SyntaxError:
                 params = " "
             except TypeError:
@@ -112,6 +116,7 @@ class ApiAutoTest:
                         ding = ' 接口 {} 返回结果异常 "platform : {}; msg : {}"; {}'
                         self.sendMsg.execution(self.website, ding.format(path, p, data["msg"], now_time))
                         break   # 跳出本次设备型号循环，开始执行下一个接口
+
                 elif method == 'post':
                     data = requests.post(url=url, headers=headers, json=params).json()
                     if data["msg"] == msg:
@@ -124,9 +129,5 @@ class ApiAutoTest:
                         ding = ' 接口 {} 返回结果异常 "platform : {}; msg : {}"; {}'
                         self.sendMsg.execution(self.website, ding.format(path, p, data["msg"], now_time))
                         break
+
         self.write_book.save("C:\\Users\\55haitao\\Desktop\\apiReport.xlsx")
-
-
-if __name__ == '__main__':
-    a = ApiAutoTest(sheet_name="55haitao", environments="pro")
-    a.readWork()

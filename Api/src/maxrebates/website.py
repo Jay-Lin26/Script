@@ -2,7 +2,7 @@ import re
 
 import requests
 
-from src.utils.dingtalk import DingTalk
+from utils.dingtalk import DingTalk
 from Libs.host import *
 
 

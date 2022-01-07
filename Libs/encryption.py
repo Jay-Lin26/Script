@@ -42,9 +42,3 @@ class Encrypt:
         self.sha1_obj.update(result.encode('utf-8'))
         result = self.sha1_obj.hexdigest()
         return result
-
-
-if __name__ == '__main__':
-    a = Encrypt()
-    a.md5('bbbbbb', '56b4d6')
-    a.sha1('abcdef', '123', '321')

@@ -18,6 +18,11 @@ class DingTalk:
         self.sign = urllib.parse.quote_plus(base64.b64encode(hmac_code))
 
     def execution(self, website, message):
+        """
+        :param website: 55haitao, maxrebates
+        :param message: Any
+        :return: None
+        """
         params = {
             "access_token": "d010a68e3c5685a83fefa6e2e5809c6c388fdcff856539a62eb15a9faee7e326",
             "timestamp": self.timestamp,

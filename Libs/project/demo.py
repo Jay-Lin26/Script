@@ -1,5 +1,10 @@
-import time
-text = "TextOrder_" + time.strftime("%Y-%m-%d-%H-%M-%S")
-text1 = time.time()
+from random import randrange
+
+content = ["你", "我", "他", "她", "它", "文", "明", "从", "做", "起", "海", "淘"]
+i = 0
+text = ""
+while i < 8:
+    i += 1
+    num = randrange(0, len(content))
+    text += content[num]
 print(text)
-print(str(round(text1)))
