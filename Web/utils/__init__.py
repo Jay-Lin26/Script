@@ -1,0 +1,2 @@
+def dingtalk():
+    return None

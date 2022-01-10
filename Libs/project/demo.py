@@ -1,10 +1,24 @@
-from random import randrange
+import requests
 
-content = ["你", "我", "他", "她", "它", "文", "明", "从", "做", "起", "海", "淘"]
-i = 0
-text = ""
-while i < 8:
-    i += 1
-    num = randrange(0, len(content))
-    text += content[num]
-print(text)
+
+url = "https://app-doc.test.55haitao.com/code/api_v3.1.json"
+result = requests.get(url=url).json()
+version = result["info"]
+url = result["servers"]
+
+# 接口路由列表
+PATHS = list(result["paths"].keys())
+
+# 接口方法 get/post/......
+method = list(result["paths"][PATHS[0]].keys())[0]
+
+# 接口参数
+param = list(result["paths"][PATHS[0]][method]["requestBody"]["content"]["application/x-www-form-urlencoded"]
+             ["schema"]["properties"].keys())
+
+header = {
+    "v": "v3.1",
+    "token": "c032a1b5ff24292124f5e4b292e9a9c9",
+}
+
+response_code = list(result["paths"][PATHS[0]][method]["responses"].keys())
