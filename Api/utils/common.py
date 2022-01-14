@@ -1,5 +1,5 @@
 import time
-from random import randrange
+from random import randrange, randint
 
 
 def changeTime():
@@ -16,3 +16,8 @@ def ranString(str_len: int = 8):
         num = randrange(0, len(contentArr))
         text += contentArr[num]
     return text
+
+
+def ranInt():
+    number = randint(1, 5000)
+    return number
