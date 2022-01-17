@@ -1,4 +1,5 @@
 import requests
+from json.decoder import JSONDecodeError
 from utils.common import ranInt
 
 
@@ -63,12 +64,13 @@ class SwaggerApi(object):
         # 请求方法   参数   成功状态码
         return __method, __param
 
-    def run(self):
-        # for k in self.urls:
-        k = "/message/get_history_message"
+    def conf(self, path):
+
+        # 测试数据
+        # k = "/message/get_history_message"
 
         # 通过接口名称获取 请求方法、请求参数
-        method, param = self.__getApiInfo(k)
+        method, param = self.__getApiInfo(path)
         # 初始化参数 -> 字典
         params = {}
 
@@ -76,20 +78,27 @@ class SwaggerApi(object):
         for i in range(len(param)):
             params[param[i]] = ranInt()
 
-        print(params)
         # 通过method区分不同的请求方法
-        if method == "post":
-            response = requests.post(url=self.domain + k, headers=self.header, params=params).json()
-            print(response)
+        try:
+            if method == "post":
+                response = requests.post(url=self.domain + path, headers=self.header, json=params).json()
+                print(response)
 
-        elif method == "get":
-            response = requests.get(url=self.domain + k, headers=self.header, params=params).json()
-            print(response)
+            elif method == "get":
+                response = requests.get(url=self.domain + path, headers=self.header, params=params).json()
+                print(response)
 
-        elif method == "delete":
-            response = requests.delete(url=self.domain + k, headers=self.header, params=params).json()
-            print(response)
+            elif method == "delete":
+                response = requests.delete(url=self.domain + path, headers=self.header, params=params).json()
+                print(response)
 
-        elif method == "put":
-            response = requests.put(url=self.domain + k, headers=self.header, params=params).json()
-            print(response)
+            elif method == "put":
+                response = requests.put(url=self.domain + path, headers=self.header, params=params).json()
+                print(response)
+        except JSONDecodeError:
+            print(path + "参数不存在")
+
+    def run(self):
+
+        for path in self.urls:
+            self.conf(path=path)
